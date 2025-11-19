@@ -70,18 +70,18 @@ export default function NotesEditor() {
                     <div style={{ display: 'flex', gap: '.75rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.2rem' }}>
                         <label>
                             <span>User:</span>
-                            <input value={user} onChange={(e) => setUser(e.target.value)} placeholder="anonymous" />
+                            <input value={user} onChange={(e) => setUser(e.target.value)} placeholder="anonymous" aria-label="User name" />
                         </label>
                         <label>
                             <span>Doc ID:</span>
-                            <input value={docId} onChange={(e) => setDocId(e.target.value)} />
+                            <input value={docId} onChange={(e) => setDocId(e.target.value)} aria-label="Document ID" />
                         </label>
                         <label style={{ display: 'flex', gap: '.5rem', alignItems: 'center', flexShrink: 0 }}>
-                            <input type="checkbox" checked={failToggle} onChange={(e) => setFailToggle(e.target.checked)} style={{ marginTop: '1px' }} />
+                            <input type="checkbox" checked={failToggle} onChange={(e) => setFailToggle(e.target.checked)} style={{ marginTop: '1px' }} aria-checked={failToggle} aria-label="Enable ENOSPC failure simulation" />
                             <span style={{ whiteSpace: 'nowrap' }}>Failure Toggle</span>
-                            {failToggle && <span className="badge">ENOSPC active</span>}
+                            {failToggle && <span className="badge" aria-live="polite">ENOSPC active</span>}
                         </label>
-                        <div style={{ marginLeft: 'auto', opacity: .8, whiteSpace: 'nowrap' }}>
+                        <div style={{ marginLeft: 'auto', opacity: .8, whiteSpace: 'nowrap' }} aria-live="polite">
                             Size: <strong>{size}</strong> / {threshold}
                         </div>
                     </div>
@@ -91,6 +91,7 @@ export default function NotesEditor() {
                         onChange={(e) => setContent(e.target.value)}
                         placeholder="Write your notes here..."
                         rows={10}
+                        aria-label="Notes content"
                         style={{
                             fontFamily: 'inherit',
                             fontSize: '1rem',
@@ -100,7 +101,7 @@ export default function NotesEditor() {
                     />
 
                     <div style={{ marginTop: '1.2rem' }}>
-                        <button className="btn" onClick={onSave} disabled={saving}>
+                        <button className="btn" onClick={onSave} disabled={saving} aria-busy={saving}>
                             {saving ? 'Saving…' : 'Save'}
                         </button>
                     </div>
@@ -108,7 +109,7 @@ export default function NotesEditor() {
             </div>
 
             {banner && (
-                <div className={banner.type === 'error' ? 'error-banner' : 'card'}>
+                <div className={banner.type === 'error' ? 'error-banner' : 'card'} role={banner.type === 'error' ? 'alert' : undefined} aria-live="polite">
                     <strong>{banner.message}</strong>
                     {banner.type === 'error' && (
                         <div style={{ marginTop: '.4rem', fontSize: '.85rem', opacity: .85 }}>

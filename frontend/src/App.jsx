@@ -12,26 +12,26 @@ export default function App() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="brand">
-          <span className="logo-dot" />
+      <nav className="navbar" role="navigation" aria-label="Primary">
+        <div className="brand" aria-label="Brand">
+          <span className="logo-dot" aria-hidden="true" />
           <span>Reliability Lab</span>
         </div>
         <div className="theme-toggle">
           <button
             className="btn btn--ghost"
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            aria-label="Toggle theme"
+            aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
           >
             {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
           </button>
         </div>
       </nav>
-      <header className="hero container">
+      <header className="hero container" role="banner">
         <h1>Reliability Simulations</h1>
         <TextType
           as="p"
-          className="description"
+          className="description lead"
           text={[
             'Use the toggles below to inject controlled failures in the app.',
             'Interdependency failure (A→B→C).',
@@ -43,8 +43,8 @@ export default function App() {
           textColors={[theme === 'light' ? '#6366f1' : '#8b5cf6', theme === 'light' ? '#22d3ee' : '#06b6d4']}
         />
       </header>
-      <section>
-        <h2>💱 Currency Price Viewer</h2>
+      <section aria-labelledby="price-viewer-heading">
+        <h2 id="price-viewer-heading">💱 Currency Price Viewer</h2>
         <p className="description">Interdependency Failure Simulation (Option F) — Chain A→B→C</p>
         <PriceViewer />
       </section>
@@ -52,13 +52,9 @@ export default function App() {
       <hr />
 
       <NotesEditor />
-      <footer>
-        <p style={{ opacity: 0.7, fontSize: '.85rem', margin: '1rem 0' }}>
-          🔬 Failure types: INTERDEPENDENCY_FAIL (rates) • ENOSPC (disk full on save)
-        </p>
-        <p style={{ opacity: 0.5, fontSize: '.75rem', margin: '.5rem 0' }}>
-          Built with React + Express • MSW for mocking
-        </p>
+      <footer role="contentinfo">
+        <p className="meta">🔬 Failure types: INTERDEPENDENCY_FAIL (rates) • ENOSPC (disk full on save)</p>
+        <p className="meta subtle">Built with React + Express • MSW for mocking</p>
       </footer>
     </>
   );

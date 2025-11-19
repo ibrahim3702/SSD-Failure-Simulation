@@ -51,16 +51,18 @@ export default function PriceViewer() {
 
     return (
         <div>
-            <div className="panel controls">
+            <div className="panel controls" role="group" aria-label="Price viewer controls">
                 <label style={{ display: 'flex', gap: '.5rem', alignItems: 'center' }}>
                     <input
                         type="checkbox"
                         checked={failure}
                         onChange={(e) => setFailure(e.target.checked)}
                         style={{ marginTop: '1px' }}
+                        aria-checked={failure}
+                        aria-label="Inject interdependency failure"
                     />
                     <span>Inject Failure</span>
-                    {failure && <span className="badge">500 upstream</span>}
+                    {failure && <span className="badge" aria-live="polite">500 upstream</span>}
                 </label>
                 <label>
                     <span>Target Currency:</span>
@@ -68,20 +70,21 @@ export default function PriceViewer() {
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
                         disabled={loading}
+                        aria-label="Target currency"
                     >
                         <option value="EUR">EUR</option>
                         <option value="GBP">GBP</option>
                     </select>
                 </label>
-                <button className="btn" onClick={fetchPrice} disabled={loading}>
+                <button className="btn" onClick={fetchPrice} disabled={loading} aria-busy={loading}>
                     {loading ? 'Loading...' : 'Fetch Converted Price'}
                 </button>
             </div>
 
             {errorInfo && (
-                <div className="error-banner">
+                <div className="error-banner" role="alert" aria-live="assertive">
                     <strong>
-                        Upstream failure: rates-service unavailable (500/slow) — Correlation ID:{' '}
+                        Upstream failure: rates-service unavailable (500/slow) — Correlation ID{' '}
                         {errorInfo.correlationId || 'n/a'}
                     </strong>
                     <div style={{ marginTop: '.4rem', fontSize: '.8rem', opacity: 0.85 }}>
