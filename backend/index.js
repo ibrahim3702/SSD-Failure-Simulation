@@ -128,7 +128,11 @@ async function fetchJson(url, options) {
     }
     return r.json();
 }
-app.use('/', express.static('./frontend'));
+// Serve built frontend in production (after `npm run build` in frontend)
+const frontendDist = path.join(__dirname, '..', 'frontend', 'dist');
+if (fs.existsSync(frontendDist)) {
+    app.use(express.static(frontendDist));
+}
 
 // ===== Option A — Hardware Failure (simulated): Notes save with ENOSPC =====
 const DATA_DIR = path.join(__dirname, 'data');

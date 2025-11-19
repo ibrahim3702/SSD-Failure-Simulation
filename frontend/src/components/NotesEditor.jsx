@@ -1,15 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-
-// Tiny Notes editor demonstrating Option A — Hardware Failure (simulated)
-// - Failure injection: when character count exceeds threshold and toggle ON, backend returns ENOSPC
-// - Shows crash banner and logs structured event to console
 export default function NotesEditor() {
     const [user, setUser] = useState(localStorage.getItem('notes.user') || 'anonymous');
     const [docId, setDocId] = useState(localStorage.getItem('notes.docId') || 'doc-1');
     const [content, setContent] = useState('');
     const [failToggle, setFailToggle] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [banner, setBanner] = useState(null); // { type: 'error'|'success', message: string }
+    const [banner, setBanner] = useState(null);
 
     const size = useMemo(() => (content ? content.length : 0), [content]);
     const threshold = 500;
@@ -67,11 +63,11 @@ export default function NotesEditor() {
 
     return (
         <section>
-            <h2>Notes Editor — Disk Full Simulation</h2>
+            <h2>📝 Notes Editor — Disk Full Simulation</h2>
             <p className="description">Toggle failure and exceed {threshold} characters to simulate ENOSPC (No space left on device).</p>
             <div className="panel">
-                <div className="controls" style={{ display: 'grid', gap: '.6rem', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', gap: '.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ padding: '1.5rem 2rem' }}>
+                    <div style={{ display: 'flex', gap: '.75rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1.2rem' }}>
                         <label>
                             <span>User:</span>
                             <input value={user} onChange={(e) => setUser(e.target.value)} placeholder="anonymous" />
@@ -80,12 +76,12 @@ export default function NotesEditor() {
                             <span>Doc ID:</span>
                             <input value={docId} onChange={(e) => setDocId(e.target.value)} />
                         </label>
-                        <label style={{ display: 'flex', gap: '.4rem', alignItems: 'center' }}>
-                            <input type="checkbox" checked={failToggle} onChange={(e) => setFailToggle(e.target.checked)} />
-                            <span>Failure Toggle</span>
+                        <label style={{ display: 'flex', gap: '.5rem', alignItems: 'center', flexShrink: 0 }}>
+                            <input type="checkbox" checked={failToggle} onChange={(e) => setFailToggle(e.target.checked)} style={{ marginTop: '1px' }} />
+                            <span style={{ whiteSpace: 'nowrap' }}>Failure Toggle</span>
                             {failToggle && <span className="badge">ENOSPC active</span>}
                         </label>
-                        <div style={{ marginLeft: 'auto', opacity: .8 }}>
+                        <div style={{ marginLeft: 'auto', opacity: .8, whiteSpace: 'nowrap' }}>
                             Size: <strong>{size}</strong> / {threshold}
                         </div>
                     </div>
@@ -95,10 +91,15 @@ export default function NotesEditor() {
                         onChange={(e) => setContent(e.target.value)}
                         placeholder="Write your notes here..."
                         rows={10}
-                        style={{ fontFamily: 'inherit', fontSize: '1rem' }}
+                        style={{
+                            fontFamily: 'inherit',
+                            fontSize: '1rem',
+                            width: '100%',
+                            boxSizing: 'border-box'
+                        }}
                     />
 
-                    <div>
+                    <div style={{ marginTop: '1.2rem' }}>
                         <button className="btn" onClick={onSave} disabled={saving}>
                             {saving ? 'Saving…' : 'Save'}
                         </button>

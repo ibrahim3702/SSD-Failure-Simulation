@@ -44,18 +44,21 @@ export default function App() {
         />
       </header>
       <section>
-        <h2>Currency Price Viewer</h2>
-        <p>Interdependency Failure Simulation (Option F) — Chain A→B→C</p>
+        <h2>💱 Currency Price Viewer</h2>
+        <p className="description">Interdependency Failure Simulation (Option F) — Chain A→B→C</p>
         <PriceViewer />
       </section>
 
-      <hr style={{ margin: '2rem 0' }} />
+      <hr />
 
       <NotesEditor />
       <footer>
-        <small>
-          Failure types: INTERDEPENDENCY_FAIL (rates) • ENOSPC (disk full on save)
-        </small>
+        <p style={{ opacity: 0.7, fontSize: '.85rem', margin: '1rem 0' }}>
+          🔬 Failure types: INTERDEPENDENCY_FAIL (rates) • ENOSPC (disk full on save)
+        </p>
+        <p style={{ opacity: 0.5, fontSize: '.75rem', margin: '.5rem 0' }}>
+          Built with React + Express • MSW for mocking
+        </p>
       </footer>
     </>
   );

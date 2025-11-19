@@ -52,11 +52,12 @@ export default function PriceViewer() {
     return (
         <div>
             <div className="panel controls">
-                <label>
+                <label style={{ display: 'flex', gap: '.5rem', alignItems: 'center' }}>
                     <input
                         type="checkbox"
                         checked={failure}
                         onChange={(e) => setFailure(e.target.checked)}
+                        style={{ marginTop: '1px' }}
                     />
                     <span>Inject Failure</span>
                     {failure && <span className="badge">500 upstream</span>}
