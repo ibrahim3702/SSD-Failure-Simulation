@@ -1,4 +1,4 @@
-# SSD Failure Simulation (Option F + Option A)
+# SSD Failure Simulation
 
 A small React + Express app that demonstrates two failure modes:
 
